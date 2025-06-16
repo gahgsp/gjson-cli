@@ -3,8 +3,11 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "render": "bun ./src/index.ts"
+  },
   "bin": {
-    "gjson": "./index.ts"
+    "gjson": "./src/index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
