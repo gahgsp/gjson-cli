@@ -19,8 +19,8 @@ This project was created using `bun init` in bun v1.2.16. [Bun](https://bun.sh) 
 ![polygon-example](assets/polygon-example.png)
 <details>
     <summary>GeoJSON Source</summary>
-```json
-{
+    ```json
+    {
   "type": "FeatureCollection",
   "features": [
     {
@@ -84,5 +84,5 @@ This project was created using `bun init` in bun v1.2.16. [Bun](https://bun.sh) 
     }
   ]
 }
-```
+    ```
 </details>
