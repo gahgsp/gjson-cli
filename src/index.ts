@@ -1,4 +1,4 @@
-import { PolygonRenderer } from "./PolygonRenderer";
+import { PolygonRenderer } from "./renderer/PolygonRenderer";
 
 // The first 2 arguments are useless for us: Bun and CLI paths.
 const filePath = Bun.argv[2];

@@ -1,22 +1,4 @@
-type Position = [number, number] | [number, number, number];
-
-interface GeoJSONPolygon {
-  type: "Polygon";
-  coordinates: Position[];
-  bbox?: [number, number, number, number];
-}
-
-interface Vertex {
-  x: number;
-  y: number;
-}
-
-interface BoundingBox {
-  minX: number;
-  maxX: number;
-  minY: number;
-  maxY: number;
-}
+import type { BoundingBox, GeoJSONPolygon, Vertex } from "../types";
 
 class PolygonRenderer {
   private terminalWidth: number;
