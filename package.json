@@ -1,0 +1,15 @@
+{
+  "name": "gjson-cli",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "gjson": "./index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
