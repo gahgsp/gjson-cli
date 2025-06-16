@@ -1,4 +1,4 @@
-import type { BoundingBox, GeoJSONPolygon, Vertex } from "../types";
+import type { BoundingBox, GeoJSONPolygon, LinearRing, Vertex } from "../types";
 
 class PolygonRenderer {
   private terminalWidth: number;
@@ -24,8 +24,13 @@ class PolygonRenderer {
     }
   }
 
-  private extractCoordinates(polygon: GeoJSONPolygon): Position[] {
-    return polygon.coordinates[0];
+  /**
+   * Extract the coordinates of the Outer Ring as we only will draw the shape of the Polygon.
+   * @param polygon The Polygon to be drawn.
+   * @returns The outer ring of the polygon.
+   */
+  private extractCoordinates(polygon: GeoJSONPolygon): LinearRing {
+    return polygon.coordinates[0]!;
   }
 
   /**
@@ -34,7 +39,7 @@ class PolygonRenderer {
    * @param coordinates The coordinates of the Polygon.
    * @returns a BBOX with the extremes from the Polygon.
    */
-  private getBoundingBox(coordinates: Position[]): BoundingBox {
+  private getBoundingBox(coordinates: LinearRing): BoundingBox {
     let minX = Infinity,
       maxX = -Infinity;
     let minY = Infinity,
@@ -86,6 +91,7 @@ class PolygonRenderer {
 
     while (true) {
       if (this.isVertexInsideTerminalBounds({ x, y })) {
+        // @ts-ignore I promise to you TS, this property is initialized in the constructor.
         this.canvas[y][x] = "#";
       }
 
@@ -135,15 +141,15 @@ class PolygonRenderer {
 
     // Connects two consecutive vertices.
     for (let i = 0; i < terminalVertices.length - 1; i++) {
-      this.drawLine(terminalVertices[i], terminalVertices[i + 1]);
+      this.drawLine(terminalVertices[i]!, terminalVertices[i + 1]!);
     }
 
     // This needs to be done outside the main drawing loop.
     // Here we connect the last vertex to the first vertex in order to "close" the Polygon.
     if (terminalVertices.length > 2) {
       this.drawLine(
-        terminalVertices[terminalVertices.length - 1],
-        terminalVertices[0]
+        terminalVertices[terminalVertices.length - 1]!,
+        terminalVertices[0]!
       );
     }
 

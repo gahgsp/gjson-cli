@@ -1,8 +1,10 @@
 export type Position = [number, number] | [number, number, number];
 
+export type LinearRing = Position[];
+
 export interface GeoJSONPolygon {
   type: "Polygon";
-  coordinates: Position[];
+  coordinates: LinearRing[];
   bbox?: [number, number, number, number];
 }
 
