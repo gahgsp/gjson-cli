@@ -1,11 +1,23 @@
+// [Longitude, Latitude, Altitude (optional)]
 export type Position = [number, number] | [number, number, number];
 
-export type LinearRing = Position[];
+interface BaseGeometry {
+  type: string;
+  coordinates: any;
+}
 
-export interface GeoJSONPolygon {
+export interface Polygon extends BaseGeometry {
   type: "Polygon";
-  coordinates: LinearRing[];
-  bbox?: [number, number, number, number];
+  coordinates: Position[][];
+}
+
+export type Geometry = Polygon;
+
+export interface Feature<G = Geometry, P = { [key: string]: any }> {
+  type: "Feature";
+  geometry: G;
+  properties: P | null;
+  id?: string | number;
 }
 
 export interface Vertex {

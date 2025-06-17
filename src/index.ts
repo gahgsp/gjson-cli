@@ -13,4 +13,4 @@ const file = Bun.file(filePath);
 const contents = await file.json();
 
 const renderer = new PolygonRenderer();
-renderer.renderPolygon(contents.features[0].geometry);
+renderer.renderPolygon(contents.features[0]);

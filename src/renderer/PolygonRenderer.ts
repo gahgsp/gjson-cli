@@ -1,4 +1,4 @@
-import type { BoundingBox, GeoJSONPolygon, LinearRing, Vertex } from "../types";
+import type { BoundingBox, Feature, Polygon, Position, Vertex } from "../types";
 
 class PolygonRenderer {
   private terminalWidth: number;
@@ -29,23 +29,23 @@ class PolygonRenderer {
    * @param polygon The Polygon to be drawn.
    * @returns The outer ring of the polygon.
    */
-  private extractCoordinates(polygon: GeoJSONPolygon): LinearRing {
-    return polygon.coordinates[0]!;
+  private extractOuterRingCoordinates(polygon: Feature<Polygon>) {
+    return polygon.geometry.coordinates[0]!;
   }
 
   /**
    * Creates a bounding box based on the Polygon received.
    * For this bounding box, the vertices are the maximum and minimum longitude and latitude.
-   * @param coordinates The coordinates of the Polygon.
+   * @param orCoordinates The outer ring coordinates of the Polygon.
    * @returns a BBOX with the extremes from the Polygon.
    */
-  private getBoundingBox(coordinates: LinearRing): BoundingBox {
+  private getBoundingBox(orCoordinates: Position[]): BoundingBox {
     let minX = Infinity,
       maxX = -Infinity;
     let minY = Infinity,
       maxY = -Infinity;
 
-    coordinates.forEach(([lng, lat]) => {
+    orCoordinates.forEach(([lng, lat]) => {
       minX = Math.min(minX, lng);
       maxX = Math.max(maxX, lng);
       minY = Math.min(minY, lat);
@@ -111,7 +111,7 @@ class PolygonRenderer {
     }
   }
 
-  private isVertexInsideTerminalBounds = ({ x, y }: Vertex) => {
+  private isVertexInsideTerminalBounds = ({ x, y }: Vertex): boolean => {
     return (
       x >= 0 && x < this.terminalWidth && y >= 0 && y < this.terminalHeight
     );
@@ -130,8 +130,8 @@ class PolygonRenderer {
     console.log("└" + "─".repeat(this.terminalWidth) + "┘");
   }
 
-  public renderPolygon(polygon: GeoJSONPolygon): void {
-    const coordinates = this.extractCoordinates(polygon);
+  public renderPolygon(polygon: Feature<Polygon>): void {
+    const coordinates = this.extractOuterRingCoordinates(polygon);
 
     const bbox = this.getBoundingBox(coordinates);
 
@@ -146,12 +146,10 @@ class PolygonRenderer {
 
     // This needs to be done outside the main drawing loop.
     // Here we connect the last vertex to the first vertex in order to "close" the Polygon.
-    if (terminalVertices.length > 2) {
-      this.drawLine(
-        terminalVertices[terminalVertices.length - 1]!,
-        terminalVertices[0]!
-      );
-    }
+    this.drawLine(
+      terminalVertices[terminalVertices.length - 1]!,
+      terminalVertices[0]!
+    );
 
     this.display();
   }
