@@ -11,6 +11,7 @@ export interface Polygon extends BaseGeometry {
   coordinates: Position[][];
 }
 
+// TODO: Support "Point" and "MultiPolygon".
 export type Geometry = Polygon;
 
 export interface Feature<G = Geometry, P = { [key: string]: any }> {
