@@ -16,6 +16,7 @@ This project was created using `bun init` in bun v1.2.16. [Bun](https://bun.sh) 
 
 ## Examples
 
+### Polygon
 ![polygon-shape-example](assets/polygon-example.png)
 <details>
     <summary>GeoJSON Source</summary>
@@ -84,6 +85,78 @@ This project was created using `bun init` in bun v1.2.16. [Bun](https://bun.sh) 
       }
     }
   ]
+}
+```
+
+</details>
+
+### MultiPolygon
+![multi-polygon-shape-example](assets/multi-polygon-example.png)
+<details>
+    <summary>GeoJSON Source</summary>
+
+```json
+{
+   "type":"FeatureCollection",
+   "features":[
+      {
+         "type":"Feature",
+         "properties":{},
+         "geometry":{
+            "type":"MultiPolygon",
+            "coordinates":[
+               [
+                  [
+                     [
+                        138.76876258332965,
+                        36.919172980201765
+                     ],
+                     [
+                        138.25710231340952,
+                        36.565094500742944
+                     ],
+                     [
+                        139.19912164439575,
+                        36.5323901149124
+                     ],
+                     [
+                        138.76876258332965,
+                        36.919172980201765
+                     ]
+                  ]
+               ],
+               [
+                  [
+                     [
+                        140.01993796291652,
+                        36.90081457620067
+                     ],
+                     [
+                        139.63550174574743,
+                        36.68645202801504
+                     ],
+                     [
+                        139.6193800321294,
+                        36.28404056311929
+                     ],
+                     [
+                        140.2771738534592,
+                        36.27466538686795
+                     ],
+                     [
+                        140.31722944262208,
+                        36.6678696854988
+                     ],
+                     [
+                        140.01993796291652,
+                        36.90081457620067
+                     ]
+                  ]
+               ]
+            ]
+         }
+      }
+   ]
 }
 ```
 
