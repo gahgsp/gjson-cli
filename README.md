@@ -1,5 +1,13 @@
 # GJSON CLI
 
+Draw shapes of GeoJSON files directly in your terminal using purely ASCII characters.
+
+> [!IMPORTANT]
+> This project is currently in development and quite limitated. Breaking behaviors may occur.
+
+> [!NOTE]  
+> In order to be able to run this tool without errors, a properly formatted GeoJSON file is expected.
+
 To install dependencies:
 
 ```bash
