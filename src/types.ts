@@ -11,8 +11,13 @@ export interface Polygon extends BaseGeometry {
   coordinates: Position[][];
 }
 
+export interface MultiPolygon extends BaseGeometry {
+  type: "MultiPolygon";
+  coordinates: Position[][][];
+}
+
 // TODO: Support "Point" and "MultiPolygon".
-export type Geometry = Polygon;
+export type Geometry = Polygon | MultiPolygon;
 
 export interface Feature<G = Geometry, P = { [key: string]: any }> {
   type: "Feature";
@@ -31,4 +36,9 @@ export interface BoundingBox {
   maxX: number;
   minY: number;
   maxY: number;
+}
+
+export interface GeoJSON {
+  type: "FeatureCollection";
+  features: Feature[];
 }
