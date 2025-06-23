@@ -36,7 +36,7 @@ const isHexColor = (input: string): boolean => {
  * The conversion maps each RGB component (0–255) to a 6-level color cube (0–5),
  * then calculates the corresponding ANSI color index (16–231) based on the 6×6×6 cube.
  *
- * @param rgb - A tuple containing the red, green, and blue values (0–255 each).
+ * @param rgb A tuple containing the red, green, and blue values (0–255 each).
  * @returns The ANSI 8-bit color code that best approximates the input color.
  *
  * @example
@@ -44,7 +44,7 @@ const isHexColor = (input: string): boolean => {
  */
 const fromHexTo8Bit = ([r, g, b]: [number, number, number]): number => {
   return (
-    16 + // ANSI palette colors start.
+    16 + // 0 - 15: system default colors; 16 - 231: colors we are interested in; 232 - 255: grayscale. Therefore, we start at 16.
     Math.floor((r * 6) / 256) * 36 + // Number of colors per red level (6 green × 6 blue = 36 colors).
     Math.floor((g * 6) / 256) * 6 + // Number of colors per green level (6 blue colors per green level).
     Math.floor((b * 6) / 256)
