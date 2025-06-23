@@ -17,7 +17,17 @@ bun install
 To run:
 
 ```bash
-bun render [my-geo-json-file-path]
+bun render -p /path/to/my/geojson/file.geojson
+```
+
+Optional coloring:
+
+```bash
+bun render -p /path/to/my/geojson/file.geojson -c green
+```
+
+```bash
+bun render -p /path/to/my/geojson/file.geojson -c #00FF00
 ```
 
 This project was created using `bun init` in bun v1.2.16. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
