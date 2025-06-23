@@ -42,3 +42,13 @@ export interface GeoJSON {
   type: "FeatureCollection";
   features: Feature[];
 }
+
+export const COLORS: Record<string, [r: number, g: number, b: number]> = {
+  red: [255, 0, 0],
+  green: [0, 255, 0],
+  blue: [0, 0, 255],
+  yellow: [255, 255, 0],
+  magenta: [255, 0, 255],
+};
+
+export const ESCAPE = "\x1b[0m";

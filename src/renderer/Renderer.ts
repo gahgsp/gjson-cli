@@ -1,18 +1,22 @@
-import type { BoundingBox, Vertex, Position } from "../types";
+import { type BoundingBox, type Vertex, type Position, ESCAPE } from "../types";
+import { fromColorToAnsi } from "../utils/paint";
 
 abstract class Renderer {
   protected terminalWidth: number;
   protected terminalHeight: number;
   // @ts-ignore Canvas is initialized in the constructor.
   private canvas: string[][];
+  private color: string;
 
-  constructor() {
+  constructor({ color }: { color?: string }) {
     this.terminalWidth = process.stdout.columns || 80;
     this.terminalHeight = process.stdout.rows || 24;
 
     // Add some padding to the canvas.
     this.terminalWidth -= 2;
     this.terminalHeight -= 4;
+
+    this.color = color || "";
 
     this.initCanvas();
   }
@@ -86,7 +90,8 @@ abstract class Renderer {
     while (true) {
       if (this.isVertexInsideTerminalBounds({ x, y })) {
         // @ts-ignore I promise to you TS, this property is initialized in the constructor.
-        this.canvas[y][x] = "#";
+
+        this.canvas[y][x] = `${fromColorToAnsi(this.color)}#${ESCAPE}`;
       }
 
       // Starting from the "from" Vertex, we reached the "to" Vertex.
