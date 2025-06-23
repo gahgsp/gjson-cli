@@ -6,7 +6,7 @@ Draw shapes of GeoJSON files directly in your terminal using purely ASCII charac
 > This is a work-in-progress.
 
 > [!NOTE]  
-> In order to be able to run this tool without errors, a properly formatted GeoJSON file is expected.
+> In order to be able to run this tool without errors, a properly formatted [GeoJSON](https://geojson.org/) file is expected.
 
 To install dependencies:
 
