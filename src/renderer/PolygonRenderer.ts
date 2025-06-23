@@ -1,4 +1,4 @@
-import type { BoundingBox, Feature, Polygon, Position, Vertex } from "../types";
+import type { Feature, Polygon } from "../types";
 import { Renderer } from "./Renderer";
 
 class PolygonRenderer extends Renderer {
