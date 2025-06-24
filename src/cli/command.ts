@@ -2,11 +2,16 @@ import { isMultiPolygonFeature, isPolygonFeature } from "../guards/geojson";
 import { MultiPolygonRenderer } from "../renderer/MultiPolygonRenderer";
 import { PolygonRenderer } from "../renderer/PolygonRenderer";
 import type { GeoJSON } from "../types";
-import { parseArgs } from "../utils/args";
+import { displayHelp, parseArgs } from "../utils/args";
 
 export const run = async () => {
   // The first 2 arguments are useless for us: Bun and CLI paths.
   const args = parseArgs(Bun.argv.slice(2));
+
+  if (args.help) {
+    displayHelp();
+    return;
+  }
 
   // Checks for the existence of the "path" argument.
   if (!args.path) {

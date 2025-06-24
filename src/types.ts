@@ -56,4 +56,5 @@ export const ESCAPE = "\x1b[0m";
 export interface SupportedArgs {
   path?: string;
   color?: string;
+  help?: boolean;
 }

@@ -7,17 +7,22 @@ export const parseArgs = (args: string[]): SupportedArgs => {
     const arg = args[i];
 
     switch (arg) {
-      // Supported path arguments: "-p" and "-path".
+      // Supported path arguments: "-p" and "--path".
       case "-p":
-      case "-path":
+      case "--path":
         result.path = args[i + 1];
         i++;
         break;
-      // Supported color arguments: "-c" and "-color".
+      // Supported color arguments: "-c" and "--color".
       case "-c":
-      case "-color":
+      case "--color":
         result.color = args[i + 1];
         i++;
+        break;
+      // Supported help arguments: "-h" and "--help".
+      case "-h":
+      case "--help":
+        result.help = true;
         break;
       default:
         if (args[i]?.startsWith("-")) {
@@ -28,4 +33,33 @@ export const parseArgs = (args: string[]): SupportedArgs => {
   }
 
   return result;
+};
+
+export const displayHelp = () => {
+  console.log(
+    `
+    GJSON - GeoJSON rendered in your Terminal / Console.
+
+    Usage:
+      bun render [options]
+
+    Description:
+      A lightweight CLI tool that renders GeoJSON shapes from Geometries directly in your Terminal using ASCII art.
+
+    Options:
+      -p, --path <file>       Path to your GeoJSON file.
+      -c, --color <color>     Color name (e.g green) or hexcode (e.g #ff0000) for rendering.
+      -h, --help              Shows this help message and exit.
+
+    Examples:
+      bun render -p ./polygon.geojson
+      bun render --path ./map.geojson --color green
+      bun render -p data.geojson -c #ffcc00
+
+    Note:
+      This is a work-in-progress.
+      Currently, only the first Feature in a GeoJSON file will be rendered.
+      Supported geometries: Polygon and MultiPolygon.
+    `
+  );
 };
