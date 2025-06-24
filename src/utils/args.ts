@@ -1,17 +1,29 @@
-export const parseArgs = (args: string[]): Record<string, string> => {
-  const result: Record<string, string> = {};
+import type { SupportedArgs } from "../types";
+
+export const parseArgs = (args: string[]): SupportedArgs => {
+  const result: SupportedArgs = {};
 
   for (let i = 0; i < args.length; i++) {
-    const currArg = args[i];
+    const arg = args[i];
 
-    if (currArg && currArg.startsWith("-") && currArg.length === 2) {
-      const key = currArg[1]; // We take only the key without the "-": -p -> p
-      const value = args[i + 1];
-
-      if (value && !value.startsWith("-")) {
-        result[key!] = value;
-        i++; // Skip the next index as it is already being used.
-      }
+    switch (arg) {
+      // Supported path arguments: "-p" and "-path".
+      case "-p":
+      case "-path":
+        result.path = args[i + 1];
+        i++;
+        break;
+      // Supported color arguments: "-c" and "-color".
+      case "-c":
+      case "-color":
+        result.color = args[i + 1];
+        i++;
+        break;
+      default:
+        if (args[i]?.startsWith("-")) {
+          console.warn(`Unknown argument: ${args[i]}.`);
+        }
+        break;
     }
   }
 

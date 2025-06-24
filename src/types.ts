@@ -52,3 +52,8 @@ export const COLORS: Record<string, [r: number, g: number, b: number]> = {
 };
 
 export const ESCAPE = "\x1b[0m";
+
+export interface SupportedArgs {
+  path?: string;
+  color?: string;
+}
