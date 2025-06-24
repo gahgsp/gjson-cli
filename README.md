@@ -30,6 +30,16 @@ bun render -p /path/to/my/geojson/file.geojson -c green
 bun render -p /path/to/my/geojson/file.geojson -c #00FF00
 ```
 
+To view all available and supported arguments:
+
+```bash
+bun render -h
+```
+
+```bash
+bun render --help
+```
+
 This project was created using `bun init` in bun v1.2.16. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
 
 ## Examples
