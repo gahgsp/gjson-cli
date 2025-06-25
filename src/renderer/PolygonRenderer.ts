@@ -8,7 +8,7 @@ class PolygonRenderer extends Renderer {
    * @returns The outer ring of the polygon.
    */
   private extractOuterRingCoordinates(polygon: Feature<Polygon>) {
-    return polygon.geometry.coordinates[0]!;
+    return polygon.geometry.coordinates[0];
   }
 
   public renderPolygon(polygon: Feature<Polygon>): void {

@@ -89,8 +89,6 @@ abstract class Renderer {
 
     while (true) {
       if (this.isVertexInsideTerminalBounds({ x, y })) {
-        // @ts-ignore I promise to you TS, this property is initialized in the constructor.
-
         this.canvas[y][x] = `${fromColorToAnsi(this.color)}#${ESCAPE}`;
       }
 
@@ -123,12 +121,12 @@ abstract class Renderer {
   protected drawShape(vertices: Vertex[]): void {
     // Connects two consecutive vertices.
     for (let i = 0; i < vertices.length - 1; i++) {
-      this.drawLine(vertices[i]!, vertices[i + 1]!);
+      this.drawLine(vertices[i], vertices[i + 1]);
     }
 
     // This needs to be done outside the main drawing loop.
     // Here we connect the last vertex to the first vertex in order to "close" the Shape.
-    this.drawLine(vertices[vertices.length - 1]!, vertices[0]!);
+    this.drawLine(vertices[vertices.length - 1], vertices[0]);
   }
 
   protected display(): void {

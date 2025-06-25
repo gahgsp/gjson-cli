@@ -11,7 +11,7 @@ class MultiPolygonRenderer extends Renderer {
     const coordinates: Position[][] = [];
 
     multiPolygon.geometry.coordinates.forEach((polygon: Position[][]) => {
-      coordinates.push(polygon[0]!);
+      coordinates.push(polygon[0]);
     });
 
     return coordinates;
