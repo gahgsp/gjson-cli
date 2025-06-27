@@ -10,9 +10,9 @@ class MultiPolygonRenderer extends Renderer {
   private extractOuterRingsCoordinates(multiPolygon: Feature<MultiPolygon>) {
     const coordinates: Position[][] = [];
 
-    multiPolygon.geometry.coordinates.forEach((polygon: Position[][]) => {
-      coordinates.push(polygon[0]);
-    });
+    for (let i = 0; i < multiPolygon.geometry.coordinates.length; i++) {
+      coordinates.push(multiPolygon.geometry.coordinates[i][0]);
+    }
 
     return coordinates;
   }
@@ -20,13 +20,13 @@ class MultiPolygonRenderer extends Renderer {
   public renderMultiPolygon(multiPolygon: Feature<MultiPolygon>) {
     const coordinates = this.extractOuterRingsCoordinates(multiPolygon);
 
-    coordinates.forEach((coordinate) => {
+    for (let i = 0; coordinates.length; i++) {
+      const coordinate = coordinates[i];
       const terminalVertices = coordinate.map(([lng, lat]) =>
         this.mapToTerminal(lng, lat)
       );
-
       this.drawShape(terminalVertices);
-    });
+    }
   }
 }
 
