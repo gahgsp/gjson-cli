@@ -1,5 +1,5 @@
-import { ESCAPE } from "./types";
-import { fromColorToAnsi } from "./utils/paint";
+import { ESCAPE } from "../types";
+import { fromColorToAnsi } from "../utils/paint";
 
 class CanvasManager {
   private static instance: CanvasManager;

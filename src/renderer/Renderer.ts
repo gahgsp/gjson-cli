@@ -1,4 +1,4 @@
-import { CanvasManager } from "../CanvasManager";
+import { CanvasManager } from "../core/CanvasManager";
 import { type BoundingBox, type Vertex } from "../types";
 
 abstract class Renderer {

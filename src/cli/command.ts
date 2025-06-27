@@ -1,8 +1,8 @@
-import { CanvasManager } from "../CanvasManager";
+import { CanvasManager } from "../core/CanvasManager";
 import { isMultiPolygonFeature, isPolygonFeature } from "../guards/geojson";
 import { MultiPolygonRenderer } from "../renderer/MultiPolygonRenderer";
 import { PolygonRenderer } from "../renderer/PolygonRenderer";
-import type { Feature, GeoJSON, MultiPolygon, Polygon } from "../types";
+import type { GeoJSON } from "../types";
 import { displayHelp, parseArgs } from "../utils/args";
 import {
   createGlobalBoundingBox,
