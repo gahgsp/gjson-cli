@@ -31,9 +31,7 @@ export const run = async () => {
 
   const geoJson: GeoJSON = await file.json();
 
-  /**
-   * Pre-processing of the information required to configure the canvas.
-   */
+  // Pre-processing of the information required to configure the canvas.
   const outerRings = extractAllOuterRings(geoJson.features);
   const bbox = createGlobalBoundingBox(outerRings);
 
