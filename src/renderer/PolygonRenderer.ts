@@ -13,14 +13,12 @@ class PolygonRenderer extends Renderer {
 
   public renderPolygon(polygon: Feature<Polygon>): void {
     const coordinates = this.extractOuterRingCoordinates(polygon);
-    const bbox = this.getBoundingBox(coordinates);
 
     const terminalVertices = coordinates.map(([lng, lat]) =>
-      this.mapToTerminal(lng, lat, bbox)
+      this.mapToTerminal(lng, lat)
     );
 
     this.drawShape(terminalVertices);
-    this.display();
   }
 }
 

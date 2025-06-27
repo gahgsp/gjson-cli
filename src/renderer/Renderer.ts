@@ -1,56 +1,13 @@
-import { type BoundingBox, type Vertex, type Position, ESCAPE } from "../types";
-import { fromColorToAnsi } from "../utils/paint";
+import { CanvasManager } from "../CanvasManager";
+import { type BoundingBox, type Vertex } from "../types";
 
 abstract class Renderer {
-  protected terminalWidth: number;
-  protected terminalHeight: number;
-  // @ts-ignore Canvas is initialized in the constructor.
-  private canvas: string[][];
   private color: string;
+  private bbox: BoundingBox;
 
-  constructor({ color }: { color?: string }) {
-    this.terminalWidth = process.stdout.columns || 80;
-    this.terminalHeight = process.stdout.rows || 24;
-
-    // Add some padding to the canvas.
-    this.terminalWidth -= 2;
-    this.terminalHeight -= 4;
-
+  constructor({ bbox, color }: { bbox: BoundingBox; color?: string }) {
+    this.bbox = bbox;
     this.color = color || "";
-
-    this.initCanvas();
-  }
-
-  /**
-   * Initializes an empty canvas ready for drawing.
-   */
-  private initCanvas(): void {
-    this.canvas = [];
-    for (let y = 0; y < this.terminalHeight; y++) {
-      this.canvas[y] = new Array(this.terminalWidth).fill(" ");
-    }
-  }
-
-  /**
-   * Creates a bounding box based on the Polygon received.
-   * For this bounding box, the vertices are the maximum and minimum longitude and latitude.
-   * @param orCoordinates The outer ring coordinates of the Polygon.
-   * @returns a BBOX with the extremes from the Polygon.
-   */
-  protected getBoundingBox(orCoordinates: Position[]): BoundingBox {
-    let minX = Infinity,
-      maxX = -Infinity;
-    let minY = Infinity,
-      maxY = -Infinity;
-
-    orCoordinates.forEach(([lng, lat]) => {
-      minX = Math.min(minX, lng);
-      maxX = Math.max(maxX, lng);
-      minY = Math.min(minY, lat);
-      maxY = Math.max(maxY, lat);
-    });
-
-    return { minX, maxX, minY, maxY };
   }
 
   /**
@@ -60,13 +17,16 @@ abstract class Renderer {
    * @param bbox A BBOX containing the coordinates of the maximum and minimum longitude and latitude.
    * @returns The position of the Vertex based on the Terminal coordinates.
    */
-  protected mapToTerminal(lng: number, lat: number, bbox: BoundingBox): Vertex {
+  protected mapToTerminal(lng: number, lat: number): Vertex {
+    const canvas = CanvasManager.getInstance();
+    const { width, height } = canvas.getSize();
     const x = Math.round(
-      ((lng - bbox.minX) / (bbox.maxX - bbox.minX)) * (this.terminalWidth - 1)
+      ((lng - this.bbox.minX) / (this.bbox.maxX - this.bbox.minX)) * (width - 1)
     );
 
     const y = Math.round(
-      ((bbox.maxY - lat) / (bbox.maxY - bbox.minY)) * (this.terminalHeight - 1)
+      ((this.bbox.maxY - lat) / (this.bbox.maxY - this.bbox.minY)) *
+        (height - 1)
     );
 
     return { x, y };
@@ -89,7 +49,7 @@ abstract class Renderer {
 
     while (true) {
       if (this.isVertexInsideTerminalBounds({ x, y })) {
-        this.canvas[y][x] = `${fromColorToAnsi(this.color)}#${ESCAPE}`;
+        CanvasManager.getInstance().drawOnCanvas({ x, y, color: this.color });
       }
 
       // Starting from the "from" Vertex, we reached the "to" Vertex.
@@ -109,9 +69,9 @@ abstract class Renderer {
   }
 
   private isVertexInsideTerminalBounds = ({ x, y }: Vertex): boolean => {
-    return (
-      x >= 0 && x < this.terminalWidth && y >= 0 && y < this.terminalHeight
-    );
+    const canvas = CanvasManager.getInstance();
+    const { width, height } = canvas.getSize();
+    return x >= 0 && x < width && y >= 0 && y < height;
   };
 
   /**
@@ -127,19 +87,6 @@ abstract class Renderer {
     // This needs to be done outside the main drawing loop.
     // Here we connect the last vertex to the first vertex in order to "close" the Shape.
     this.drawLine(vertices[vertices.length - 1], vertices[0]);
-  }
-
-  protected display(): void {
-    // Before drawing a new AOI, we clear the Terminal / Console.
-    console.clear();
-
-    console.log("┌" + "─".repeat(this.terminalWidth) + "┐");
-
-    this.canvas.forEach((row) => {
-      console.log("│" + row.join("") + "│");
-    });
-
-    console.log("└" + "─".repeat(this.terminalWidth) + "┘");
   }
 }
 

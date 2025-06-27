@@ -20,17 +20,13 @@ class MultiPolygonRenderer extends Renderer {
   public renderMultiPolygon(multiPolygon: Feature<MultiPolygon>) {
     const coordinates = this.extractOuterRingsCoordinates(multiPolygon);
 
-    const bbox = this.getBoundingBox(coordinates.flat());
-
     coordinates.forEach((coordinate) => {
       const terminalVertices = coordinate.map(([lng, lat]) =>
-        this.mapToTerminal(lng, lat, bbox)
+        this.mapToTerminal(lng, lat)
       );
 
       this.drawShape(terminalVertices);
     });
-
-    this.display();
   }
 }
 
