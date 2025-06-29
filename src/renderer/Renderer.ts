@@ -2,12 +2,32 @@ import { CanvasManager } from "../core/CanvasManager";
 import { type BoundingBox, type Vertex } from "../types";
 
 abstract class Renderer {
+  /**
+   * Defines the color in which the characters will be displayed in the Terminal.
+   */
   private color: string;
+  /**
+   * The Bounding Box containing the maximums and minimum coordinates suppported by the Canvas where the shapes will be drawn in the Terminal.
+   */
   private bbox: BoundingBox;
+  /**
+   * Defines the ASCII character that will be used by the Renderer to display the shape in the Terminal.
+   * It defaults to #.
+   */
+  private symbol: string;
 
-  constructor({ bbox, color }: { bbox: BoundingBox; color?: string }) {
+  constructor({
+    bbox,
+    color,
+    symbol,
+  }: {
+    bbox: BoundingBox;
+    color?: string;
+    symbol?: string;
+  }) {
     this.bbox = bbox;
     this.color = color || "";
+    this.symbol = symbol || "#";
   }
 
   /**
@@ -49,7 +69,12 @@ abstract class Renderer {
 
     while (true) {
       if (this.isVertexInsideTerminalBounds({ x, y })) {
-        CanvasManager.getInstance().drawOnCanvas({ x, y, color: this.color });
+        CanvasManager.getInstance().drawOnCanvas({
+          x,
+          y,
+          color: this.color,
+          symbol: this.symbol,
+        });
       }
 
       // Starting from the "from" Vertex, we reached the "to" Vertex.

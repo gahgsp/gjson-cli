@@ -16,8 +16,12 @@ export interface MultiPolygon extends BaseGeometry {
   coordinates: Position[][][];
 }
 
-// TODO: Support "Point" and "MultiPolygon".
-export type Geometry = Polygon | MultiPolygon;
+export interface Point extends BaseGeometry {
+  type: "Point";
+  coordinates: Position;
+}
+
+export type Geometry = Polygon | MultiPolygon | Point;
 
 export interface Feature<G = Geometry, P = { [key: string]: any }> {
   type: "Feature";

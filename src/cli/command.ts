@@ -1,6 +1,11 @@
 import { CanvasManager } from "../core/CanvasManager";
-import { isMultiPolygonFeature, isPolygonFeature } from "../guards/geojson";
+import {
+  isMultiPolygonFeature,
+  isPointFeature,
+  isPolygonFeature,
+} from "../guards/geojson";
 import { MultiPolygonRenderer } from "../renderer/MultiPolygonRenderer";
+import { PointRenderer } from "../renderer/PointRenderer";
 import { PolygonRenderer } from "../renderer/PolygonRenderer";
 import type { GeoJSON } from "../types";
 import { displayHelp, parseArgs } from "../utils/args";
@@ -37,6 +42,7 @@ export const run = async () => {
 
   const polygonRenderer = new PolygonRenderer({ bbox, color });
   const multiPolygonRenderer = new MultiPolygonRenderer({ bbox, color });
+  const pointRenderer = new PointRenderer({ bbox, color, symbol: "*" });
 
   for (let i = 0; i < geoJson.features.length; i++) {
     const currentFeature = geoJson.features[i];
@@ -44,6 +50,8 @@ export const run = async () => {
       polygonRenderer.renderPolygon(currentFeature);
     } else if (isMultiPolygonFeature(currentFeature)) {
       multiPolygonRenderer.renderMultiPolygon(currentFeature);
+    } else if (isPointFeature(currentFeature)) {
+      pointRenderer.renderPoint(currentFeature);
     }
   }
 

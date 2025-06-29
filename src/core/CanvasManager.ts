@@ -42,14 +42,18 @@ class CanvasManager {
     x,
     y,
     color,
+    symbol,
   }: {
     x: number;
     y: number;
     color?: string;
+    symbol: string;
   }): void {
     // TODO: Maybe the Renderer decides what and in which color to draw?
     // TODO: This would allow for further customization on drawing capabilities.
-    this.canvas[y][x] = color ? `${fromColorToAnsi(color)}#${ESCAPE}` : "#";
+    this.canvas[y][x] = color
+      ? `${fromColorToAnsi(color)}${symbol}${ESCAPE}`
+      : symbol;
   }
 
   public display(): void {

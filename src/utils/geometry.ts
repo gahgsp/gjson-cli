@@ -1,3 +1,8 @@
+import {
+  isMultiPolygonFeature,
+  isPointFeature,
+  isPolygonFeature,
+} from "../guards/geojson";
 import type { BoundingBox, Feature, Position } from "../types";
 
 /**
@@ -9,13 +14,15 @@ export const extractAllOuterRings = (features: Feature[]): Position[][] => {
   const rings: Position[][] = [];
 
   for (let i = 0; i < features.length; i++) {
-    const { geometry } = features[i];
-    if (geometry.type === "Polygon") {
-      rings.push(geometry.coordinates[0]);
-    } else if (geometry.type === "MultiPolygon") {
-      for (let j = 0; i < geometry.coordinates.length; i++) {
-        rings.push(geometry.coordinates[j][0]); // We add the Outer Ring from each Polygon.
+    const feature = features[i];
+    if (isPolygonFeature(feature)) {
+      rings.push(feature.geometry.coordinates[0]);
+    } else if (isMultiPolygonFeature(feature)) {
+      for (let j = 0; i < feature.geometry.coordinates.length; i++) {
+        rings.push(feature.geometry.coordinates[j][0]); // We add the Outer Ring from each Polygon.
       }
+    } else if (isPointFeature(feature)) {
+      rings.push([feature.geometry.coordinates]);
     }
   }
 
