@@ -189,3 +189,31 @@ This project was created using `bun init` in bun v1.2.16. [Bun](https://bun.sh) 
 ```
 
 </details>
+
+### Point
+![point-example](assets/point-example.png)
+<details>
+    <summary>GeoJSON Source</summary>
+
+```json
+{
+   "type":"FeatureCollection",
+   "features":[
+      {
+         "type":"Feature",
+         "properties":{
+            
+         },
+         "geometry":{
+            "coordinates":[
+               135.50717035165428,
+               34.689724041981776
+            ],
+            "type":"Point"
+         }
+      }
+   ]
+}
+```
+
+</details>
