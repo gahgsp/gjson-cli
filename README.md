@@ -1,6 +1,10 @@
+<div align="center">
+  <img src="assets/logo.png" alt="GJSON" width="300">
+</div>
+
 # GJSON CLI
 
-Draw shapes of GeoJSON files directly in your terminal using purely ASCII characters.
+A lightweight command-line tool to draw shapes of GeoJSON files directly in your terminal using purely ASCII characters.
 
 > [!IMPORTANT]
 > This is a work-in-progress.
@@ -8,44 +12,36 @@ Draw shapes of GeoJSON files directly in your terminal using purely ASCII charac
 > [!NOTE]  
 > In order to be able to run this tool without errors, a properly formatted [GeoJSON](https://geojson.org/) file is expected.
 
-To install dependencies:
+## Usage
+
+First, install the dependencies:
 
 ```bash
 bun install
 ```
 
-To run:
+Then run:
 
 ```bash
 bun render -p /path/to/my/geojson/file.geojson
 ```
 
-Optional coloring:
+### CLI Options
 
-```bash
-bun render -p /path/to/my/geojson/file.geojson -c green
-```
-
-```bash
-bun render -p /path/to/my/geojson/file.geojson -c #00FF00
-```
-
-To view all available and supported arguments:
-
-```bash
-bun render -h
-```
-
-```bash
-bun render --help
-```
-
-This project was created using `bun init` in bun v1.2.16. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+| Argument   | Description                                                                                                 |
+| ---------  | ----------------------------------------------------------------------------------------------------------- |
+| -p, -path  | Defines the GeoJSON path of the file to be read. It is required.                                            | 
+| -c, -color | Sets the color of the characters. You can use pre-defined values such as `red`, `green`, `blue` or   `hex`. |
+| -h, -help  | Shows a quick manual on how to use this command-line tool.                                                  |
 
 ## Examples
 
+Below are some examples on how the shapes are drawn directly into the Terminal.
+
 ### Polygon
-![polygon-shape-example](assets/polygon-example.png)
+<div align="center">
+  <img src="assets/polygon-example.png" alt="GJSON - Polygon Example" width="300" height="300">
+</div>
 <details>
     <summary>GeoJSON Source</summary>
 
@@ -119,7 +115,9 @@ This project was created using `bun init` in bun v1.2.16. [Bun](https://bun.sh) 
 </details>
 
 ### MultiPolygon
-![multi-polygon-shape-example](assets/multi-polygon-example.png)
+<div align="center">
+  <img src="assets/multi-polygon-example.png" alt="GJSON - MultiPolygon Example" width="300" height="300">
+</div>
 <details>
     <summary>GeoJSON Source</summary>
 
@@ -191,7 +189,9 @@ This project was created using `bun init` in bun v1.2.16. [Bun](https://bun.sh) 
 </details>
 
 ### Point
-![point-example](assets/point-example.png)
+<div align="center">
+  <img src="assets/point-example.png" alt="GJSON - Point Example" width="300" height="300">
+</div>
 <details>
     <summary>GeoJSON Source</summary>
 
@@ -217,3 +217,7 @@ This project was created using `bun init` in bun v1.2.16. [Bun](https://bun.sh) 
 ```
 
 </details>
+
+## Architecture
+
+This project was created using `bun init` in bun v1.2.16. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
