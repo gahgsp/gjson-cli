@@ -40,7 +40,7 @@ Below are some examples on how the shapes are drawn directly into the Terminal.
 
 ### Polygon
 <div align="center">
-  <img src="assets/polygon-example.png" alt="GJSON - Polygon Example" width="300" height="300">
+  <img src="assets/polygon-example.png" alt="GJSON - Polygon Example" width="600" height="300">
 </div>
 <details>
     <summary>GeoJSON Source</summary>
@@ -116,7 +116,7 @@ Below are some examples on how the shapes are drawn directly into the Terminal.
 
 ### MultiPolygon
 <div align="center">
-  <img src="assets/multi-polygon-example.png" alt="GJSON - MultiPolygon Example" width="300" height="300">
+  <img src="assets/multi-polygon-example.png" alt="GJSON - MultiPolygon Example" width="600" height="300">
 </div>
 <details>
     <summary>GeoJSON Source</summary>
@@ -190,7 +190,7 @@ Below are some examples on how the shapes are drawn directly into the Terminal.
 
 ### Point
 <div align="center">
-  <img src="assets/point-example.png" alt="GJSON - Point Example" width="300" height="300">
+  <img src="assets/point-example.png" alt="GJSON - Point Example" width="600" height="300">
 </div>
 <details>
     <summary>GeoJSON Source</summary>
